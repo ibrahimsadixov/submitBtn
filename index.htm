@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    form{
+        height: 40vh;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+    }
+    form button{
+        height: 30px;
+        width: 60px;
+        transition: .1s;
+        cursor: pointer;
+    }
+    .right  {
+        margin-right: 200px;
+        transition: .1s;
+    }
+    .left  {
+        margin-left: 200px;
+        transition: .1s;
+    }
+    .stay{
+        height: 30px;
+        width: 60px;
+      
+    }
+</style>
+<body>
+
+    
+    <form id="submit">
+        <input id="email" type="text"  placeholder="email">
+        <input id="password" type="text"  placeholder="password">
+        <button id="btn" type="submit">Submit</button>
+    </form>
+
+</body>
+
+<script>
+
+const submit = document.getElementById("submit");
+        const password = document.getElementById("password");
+        const email = document.getElementById("email");
+        const btn = document.getElementById("btn");
+
+        function validatePassword(password) {
+
+  if (password.length < 8) {
+    return false;
+  }
+
+  if (!/\d/.test(password)) {
+    return false;
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    return false;
+  }
+
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    return false;
+  }
+
+  return true;
+}
+
+
+        function validateEmail(email) {
+            var atIndex = email.indexOf("@");
+
+            if (atIndex === -1 || atIndex === 0 || atIndex === email.length - 1) {
+                return false;
+            }
+
+            var beforeAt = email.substring(0, atIndex);
+            if (beforeAt.length < 2) {
+                return false;
+            }
+
+            var afterAt = email.substring(atIndex + 1);
+            if (afterAt.length < 2) {
+                return false;
+            }
+
+            var validChars = /^[a-zA-Z0-9.-]+$/;
+            if (!validChars.test(afterAt)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        let hoverCount = 0;
+
+        btn.addEventListener("mouseenter", () => {
+            var emailValue = email.value;
+            if (validateEmail(email.value) && validatePassword(password.value)) {
+            btn.classList.toggle("stay");
+        } else {
+            if (hoverCount === 0) {
+                btn.classList.toggle("right");
+                console.log(emailValue);
+                hoverCount = 1;
+            } else if (hoverCount === 1) {
+                btn.classList.toggle("left");
+                hoverCount = 0;
+            }
+        }
+    });
+</script>
+</html>
+
+
+</script>
+</html>
